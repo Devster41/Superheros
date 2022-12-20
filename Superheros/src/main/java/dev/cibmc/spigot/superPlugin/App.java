@@ -7,6 +7,7 @@ public class App extends JavaPlugin {
         getLogger().info("Hello, SpimingotMC!");
         ItemManager.init();
         getCommand("giveglass").setExecutor(new Commands());
+        getServer().getPluginManager().registerEvents(new GlassThrow(), this);
     }
     @Override
     public void onDisable() {
