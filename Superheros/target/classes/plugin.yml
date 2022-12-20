@@ -1,0 +1,3 @@
+main: dev.cibmc.spigot.superPlugin.App
+name: superheroPlugin
+version: 0.1
