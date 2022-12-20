@@ -5,6 +5,8 @@ public class App extends JavaPlugin {
     @Override
     public void onEnable() {
         getLogger().info("Hello, SpimingotMC!");
+        ItemManager.init();
+        getCommand("giveglass").setExecutor(new Commands());
     }
     @Override
     public void onDisable() {

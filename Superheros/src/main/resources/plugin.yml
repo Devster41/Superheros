@@ -1,3 +1,7 @@
 main: dev.cibmc.spigot.superPlugin.App
 name: superheroPlugin
 version: 0.1
+commands:
+  giveglass:
+    description: Gives Anne their eldrich glass blast
+    usage: /<command>
