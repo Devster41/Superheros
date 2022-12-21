@@ -1,14 +1,18 @@
 package dev.cibmc.spigot.superPlugin;
 
+import java.util.Collection;
+import java.util.List;
+
 import org.bukkit.Bukkit;
+import org.bukkit.entity.*;
 import org.bukkit.Effect;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
+import org.bukkit.Server;
 import org.bukkit.Sound;
 import org.bukkit.Vibration;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.LlamaSpit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -16,22 +20,46 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 public class GlassThrow implements Listener {
     
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public static void onRightClick(PlayerInteractEvent event) {
         Player player = event.getPlayer();
+
+        //Anne
         if (event.getAction() == Action.RIGHT_CLICK_AIR) {
+                    //Amanda
+            if (player.getInventory().getItemInMainHand().getType().equals(Material.AIR)) {
+                Bukkit.broadcastMessage("Item: " + player.getInventory().getItemInMainHand().getType().equals(Material.AIR));
+                if (player.getDisplayName().equals("Devster41")) {
+                    Block block = player.getTargetBlock(null, 200);
+                    
+                    Location first = new Location(player.getWorld(), (block.getX() + player.getLocation().getX()) / 4, 
+                                            (block.getY() + player.getLocation().getY()) / 4, 
+                                            (block.getZ() + player.getLocation().getZ()) / 4);
+
+                    Location second = new Location(player.getWorld(), (block.getX() + player.getLocation().getX()) / 3, 
+                                            (block.getY() + player.getLocation().getY()) / 3, 
+                                            (block.getZ() + player.getLocation().getZ()) / 3);
+
+                    Location third = new Location(player.getWorld(), (block.getX() + player.getLocation().getX()) / 2, 
+                                            (block.getY() + player.getLocation().getY()) / 2, 
+                                            (block.getZ() + player.getLocation().getZ()) / 2);
+
+                    Collection<Entity> nearby = block.getLocation().getWorld().getNearbyEntities(block.getLocation(), 5, 5, 5);
+                    player.spawnParticle(Particle.SONIC_BOOM, player.getLocation(), 1);
+                    player.spawnParticle(Particle.SONIC_BOOM, first, 1);
+                    player.spawnParticle(Particle.SONIC_BOOM, second, 1);
+                    player.spawnParticle(Particle.SONIC_BOOM, third, 1);
+                    player.spawnParticle(Particle.SONIC_BOOM, block.getLocation(), 1);
+                    for (Entity tmp: nearby) {
+                        if ((tmp instanceof Damageable) && !(tmp instanceof Player))
+                            ((Damageable) tmp).damage(2);
+                    }
+                }
+            }
             if (event.getItem() != null) {
                 if (event.getItem().getItemMeta().equals(ItemManager.eldrichBlast.getItemMeta())) {
                     player.launchProjectile(LlamaSpit.class);
                     player.getWorld().playSound(player.getLocation(), Sound.BLOCK_GLASS_BREAK, 1, 1);
-                } else if (player.getInventory().getItemInMainHand().getType().equals(Material.AIR)) {
-                    //if (player.getName() == "Michelle") {
-                        Block block = player.getTargetBlock(null, 200);
-                        if (block != null) {
-                            Vibration vibration = new Vibration(player.getLocation(), new Vibration.Destination.BlockDestination(block), 40);
-                            player.getWorld().spawnParticle(Particle.VIBRATION, player.getLocation(), 1, vibration);
-                        }
-                    //}
                 }
             } 
         }
