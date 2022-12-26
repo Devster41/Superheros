@@ -29,9 +29,6 @@ public class GlassThrow implements Listener {
         if (event.getAction() == Action.LEFT_CLICK_AIR) {
             if (player.getDisplayName().equals("Devster41")) {
                 ItemStack i = new ItemStack(Material.NOTE_BLOCK);
-                Bukkit.broadcastMessage("i: " + (i.getItemMeta().toString()));
-                Bukkit.broadcastMessage("event item: " + event.getItem().getItemMeta().toString());
-                
                 if (event.getItem().getItemMeta().equals(i.getItemMeta())) {
                     Block block = player.getTargetBlock(null, 200);
                     Location mid = new Location(player.getWorld(), (block.getX() + player.getLocation().getX()) / 2, 
