@@ -13,49 +13,54 @@ import org.bukkit.Server;
 import org.bukkit.Sound;
 import org.bukkit.Vibration;
 import org.bukkit.block.Block;
+import org.bukkit.block.data.type.NoteBlock;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class GlassThrow implements Listener {
     
-    @EventHandler(ignoreCancelled = true)
+    @EventHandler
     public static void onRightClick(PlayerInteractEvent event) {
         Player player = event.getPlayer();
 
-        //Anne
-        if (event.getAction() == Action.RIGHT_CLICK_AIR) {
-                    //Amanda
-            if (player.getInventory().getItemInMainHand().getType().equals(Material.AIR)) {
-                Bukkit.broadcastMessage("Item: " + player.getInventory().getItemInMainHand().getType().equals(Material.AIR));
-                if (player.getDisplayName().equals("Devster41")) {
+        if (event.getAction() == Action.LEFT_CLICK_AIR) {
+            if (player.getDisplayName().equals("Devster41")) {
+                ItemStack i = new ItemStack(Material.NOTE_BLOCK);
+                Bukkit.broadcastMessage("i: " + (i.getItemMeta().toString()));
+                Bukkit.broadcastMessage("event item: " + event.getItem().getItemMeta().toString());
+                
+                if (event.getItem().getItemMeta().equals(i.getItemMeta())) {
                     Block block = player.getTargetBlock(null, 200);
-                    
-                    Location first = new Location(player.getWorld(), (block.getX() + player.getLocation().getX()) / 4, 
-                                            (block.getY() + player.getLocation().getY()) / 4, 
-                                            (block.getZ() + player.getLocation().getZ()) / 4);
+                    Location mid = new Location(player.getWorld(), (block.getX() + player.getLocation().getX()) / 2, 
+                                                (block.getY() + player.getLocation().getY()) / 2, 
+                                                (block.getZ() + player.getLocation().getZ()) / 2);
 
-                    Location second = new Location(player.getWorld(), (block.getX() + player.getLocation().getX()) / 3, 
-                                            (block.getY() + player.getLocation().getY()) / 3, 
-                                            (block.getZ() + player.getLocation().getZ()) / 3);
-
-                    Location third = new Location(player.getWorld(), (block.getX() + player.getLocation().getX()) / 2, 
-                                            (block.getY() + player.getLocation().getY()) / 2, 
-                                            (block.getZ() + player.getLocation().getZ()) / 2);
-
-                    Collection<Entity> nearby = block.getLocation().getWorld().getNearbyEntities(block.getLocation(), 5, 5, 5);
-                    player.spawnParticle(Particle.SONIC_BOOM, player.getLocation(), 1);
-                    player.spawnParticle(Particle.SONIC_BOOM, first, 1);
-                    player.spawnParticle(Particle.SONIC_BOOM, second, 1);
-                    player.spawnParticle(Particle.SONIC_BOOM, third, 1);
-                    player.spawnParticle(Particle.SONIC_BOOM, block.getLocation(), 1);
-                    for (Entity tmp: nearby) {
+                    Collection<Entity> blockNearby = block.getLocation().getWorld().getNearbyEntities(block.getLocation(), 5, 5, 5);
+                    Collection<Entity> midNearby = mid.getWorld().getNearbyEntities(block.getLocation(), 5, 5, 5);
+                    Collection<Entity> playerNearby = player.getLocation().getWorld().getNearbyEntities(block.getLocation(), 5, 5, 5);
+                    player.spawnParticle(Particle.SONIC_BOOM, player.getLocation(), 50);
+                    for (Entity tmp: playerNearby) {
+                        if ((tmp instanceof Damageable) && !(tmp instanceof Player))
+                            ((Damageable) tmp).damage(2);
+                    }
+                    player.spawnParticle(Particle.SONIC_BOOM, mid, 50);
+                    for (Entity tmp: midNearby) {
+                        if ((tmp instanceof Damageable) && !(tmp instanceof Player))
+                            ((Damageable) tmp).damage(2);
+                    }
+                    player.spawnParticle(Particle.SONIC_BOOM, block.getLocation(), 50);
+                    for (Entity tmp: blockNearby) {
                         if ((tmp instanceof Damageable) && !(tmp instanceof Player))
                             ((Damageable) tmp).damage(2);
                     }
                 }
             }
+        }
+        //Anne
+        if (event.getAction() == Action.RIGHT_CLICK_AIR) {
             if (event.getItem() != null) {
                 if (event.getItem().getItemMeta().equals(ItemManager.eldrichBlast.getItemMeta())) {
                     player.launchProjectile(LlamaSpit.class);
