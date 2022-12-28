@@ -26,34 +26,41 @@ public class GlassThrow implements Listener {
     public static void onRightClick(PlayerInteractEvent event) throws InterruptedException {
         Player player = event.getPlayer();
 
+        if ((event.getAction() == Action.PHYSICAL) && (player.getDisplayName().equals("Devster41"))) {
+            player.setWalkSpeed((float) 0.5);
+        }
+
         if (event.getAction() == Action.LEFT_CLICK_AIR) {
             if (player.getDisplayName().equals("Devster41")) {
                 ItemStack i = new ItemStack(Material.NOTE_BLOCK);
                 if (event.getItem().getItemMeta().equals(i.getItemMeta())) {
                     Block block = player.getTargetBlock(null, 200);
-                    Location mid = new Location(player.getWorld(), (block.getX() + player.getLocation().getX()) / 2, 
-                                                (block.getY() + player.getLocation().getY()) / 2, 
-                                                (block.getZ() + player.getLocation().getZ()) / 2);
+                    double midy = (block.getY() + player.getLocation().getY()) / 2;
+                    double midx = (block.getX() + player.getLocation().getX()) / 2;
+                    double midz = (block.getZ() + player.getLocation().getZ()) / 2;
+
+                    Location mid = new Location(player.getWorld(), midx, midy, midz);
+
+                    Location tf = new Location(player.getWorld(), midx + ((block.getLocation().getX() - midx) / 2), 
+                                                midy + ((block.getLocation().getY() - midy) / 2), 
+                                                midz + ((block.getLocation().getZ() - midz) / 2));
+
+                    Location of = new Location(player.getWorld(), midx + ((midx - player.getLocation().getX()) / 2), 
+                                                midy + ((midy - player.getLocation().getY()) / 2), 
+                                                midz + ((midz - player.getLocation().getY()) / 2));
 
                     Collection<Entity> blockNearby = block.getLocation().getWorld().getNearbyEntities(block.getLocation(), 5, 5, 5);
-                    Collection<Entity> midNearby = mid.getWorld().getNearbyEntities(block.getLocation(), 5, 5, 5);
-                    Collection<Entity> playerNearby = player.getLocation().getWorld().getNearbyEntities(block.getLocation(), 5, 5, 5);
-                    player.spawnParticle(Particle.SONIC_BOOM, player.getLocation(), 50);
-                    for (Entity tmp: playerNearby) {
-                        if ((tmp instanceof Damageable) && !(tmp instanceof Player))
-                            ((Damageable) tmp).damage(2);
-                    }
-                    Thread.sleep(500);
+
+                    player.spawnParticle(Particle.SONIC_BOOM, of, 50);
+                    Thread.sleep(50);
                     player.spawnParticle(Particle.SONIC_BOOM, mid, 50);
-                    for (Entity tmp: midNearby) {
-                        if ((tmp instanceof Damageable) && !(tmp instanceof Player))
-                            ((Damageable) tmp).damage(2);
-                    }
-                    Thread.sleep(500);
+                    Thread.sleep(50);
+                    player.spawnParticle(Particle.SONIC_BOOM, tf, 50);
+                    Thread.sleep(50);
                     player.spawnParticle(Particle.SONIC_BOOM, block.getLocation(), 50);
                     for (Entity tmp: blockNearby) {
                         if ((tmp instanceof Damageable) && !(tmp instanceof Player))
-                            ((Damageable) tmp).damage(2);
+                            ((Damageable) tmp).damage(3);
                     }
                 }
             }
