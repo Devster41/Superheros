@@ -23,7 +23,7 @@ import org.bukkit.inventory.ItemStack;
 public class GlassThrow implements Listener {
     
     @EventHandler
-    public static void onRightClick(PlayerInteractEvent event) {
+    public static void onRightClick(PlayerInteractEvent event) throws InterruptedException {
         Player player = event.getPlayer();
 
         if (event.getAction() == Action.LEFT_CLICK_AIR) {
@@ -43,11 +43,13 @@ public class GlassThrow implements Listener {
                         if ((tmp instanceof Damageable) && !(tmp instanceof Player))
                             ((Damageable) tmp).damage(2);
                     }
+                    Thread.sleep(500);
                     player.spawnParticle(Particle.SONIC_BOOM, mid, 50);
                     for (Entity tmp: midNearby) {
                         if ((tmp instanceof Damageable) && !(tmp instanceof Player))
                             ((Damageable) tmp).damage(2);
                     }
+                    Thread.sleep(500);
                     player.spawnParticle(Particle.SONIC_BOOM, block.getLocation(), 50);
                     for (Entity tmp: blockNearby) {
                         if ((tmp instanceof Damageable) && !(tmp instanceof Player))
