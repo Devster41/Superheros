@@ -20,7 +20,7 @@ public class NoteRunnable implements Runnable {
     @Override
     public void run() {
         Random rn = new Random();
-        int octave = rn.nextInt(5);
+        int octave = rn.nextInt(2);
         int toneInt = rn.nextInt(7);
         Tone tone;
 

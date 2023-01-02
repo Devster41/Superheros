@@ -54,7 +54,7 @@ public class GlassThrow implements Listener {
                     Collection<Entity> blockNearby = null;
                     Random rand = new Random();
                     ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
-
+                    iterator.next();
                     while (iterator.hasNext()) {
                         nextBlock = iterator.next();
                         blockNearby = nextBlock.getLocation().getWorld().getNearbyEntities(nextBlock.getLocation(), 2, 2, 2);
@@ -64,6 +64,7 @@ public class GlassThrow implements Listener {
                             if ((tmp instanceof Damageable) && !(tmp instanceof Player))
                             ((Damageable) tmp).damage(3);
                         }
+                        if (iterator.hasNext()) iterator.next();
                         if (iterator.hasNext()) iterator.next();
                         if (iterator.hasNext()) iterator.next();
                         Thread.sleep(115);
