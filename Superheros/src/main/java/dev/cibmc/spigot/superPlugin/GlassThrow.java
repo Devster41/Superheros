@@ -41,8 +41,8 @@ public class GlassThrow implements Listener {
             if (event.getAction() == Action.LEFT_CLICK_AIR) {
                 ItemStack i = new ItemStack(Material.NOTE_BLOCK);
 
-                if (event.getItem().getItemMeta().equals(i.getItemMeta())) {
-                    BlockIterator iterator = new BlockIterator(player, 10);
+                if (event.getItem().getItemMeta().getDisplayName().equals(i.getItemMeta().getDisplayName())) {
+                    BlockIterator iterator = new BlockIterator(player, 15);
                     Block nextBlock = null;
                     Collection<Entity> blockNearby = null;
                     while (iterator.hasNext()) {
@@ -53,8 +53,10 @@ public class GlassThrow implements Listener {
                             if ((tmp instanceof Damageable) && !(tmp instanceof Player))
                             ((Damageable) tmp).damage(3);
                         }
+                        if (iterator.hasNext()) iterator.next();
+                        if (iterator.hasNext()) iterator.next();
+                        Thread.sleep(200);
                     }
-
                      
                     /* 
                     Collection<Entity> blockNearby = block.getLocation().getWorld().getNearbyEntities(block.getLocation(), 2, 2, 2);
@@ -76,13 +78,6 @@ public class GlassThrow implements Listener {
                     player.spawnParticle(Particle.SONIC_BOOM, mid, 1);
                     Thread.sleep(100); 
                     */
-                   
-                    
-                    for (Entity tmp: blockNearby) {
-                        if ((tmp instanceof Damageable) && !(tmp instanceof Player))
-                            player.spawnParticle(Particle.SONIC_BOOM, tmp.getLocation(), 30);
-                            ((Damageable) tmp).damage(3);
-                    }
                 }
             }
         }
