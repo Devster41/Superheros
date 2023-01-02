@@ -3,6 +3,7 @@ package dev.cibmc.spigot.superPlugin;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Random;
 
 import org.bukkit.entity.*;
 import org.bukkit.Bukkit;
@@ -21,14 +22,13 @@ import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.BlockIterator;
-import org.bukkit.util.RayTraceResult;
 
 public class GlassThrow implements Listener {
     @EventHandler
     public void addSpeed(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         if (player.getDisplayName().equals("Devster41")) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 2));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1));
         }
     }
 
@@ -40,44 +40,26 @@ public class GlassThrow implements Listener {
         if (player.getDisplayName().equals("Devster41")) {
             if (event.getAction() == Action.LEFT_CLICK_AIR) {
                 ItemStack i = new ItemStack(Material.NOTE_BLOCK);
-
-                if (event.getItem().getItemMeta().getDisplayName().equals(i.getItemMeta().getDisplayName())) {
+                if (event.getItem().equals(i)) {
                     BlockIterator iterator = new BlockIterator(player, 15);
                     Block nextBlock = null;
                     Collection<Entity> blockNearby = null;
+                    Random rand = new Random();
+                    float pitch = rand.nextFloat((10F - 1F) + 1F) + 1F;
                     while (iterator.hasNext()) {
                         nextBlock = iterator.next();
                         blockNearby = nextBlock.getLocation().getWorld().getNearbyEntities(nextBlock.getLocation(), 2, 2, 2);
                         player.spawnParticle(Particle.SONIC_BOOM, nextBlock.getLocation(), 10);
+                        player.getWorld().playSound(nextBlock.getLocation(), Sound.BLOCK_NOTE_BLOCK_HARP, 1.0F, 1.0F * pitch);
+                        pitch += 2;
                         for (Entity tmp : blockNearby) {
                             if ((tmp instanceof Damageable) && !(tmp instanceof Player))
                             ((Damageable) tmp).damage(3);
                         }
                         if (iterator.hasNext()) iterator.next();
                         if (iterator.hasNext()) iterator.next();
-                        Thread.sleep(200);
+                        Thread.sleep(115);
                     }
-                     
-                    /* 
-                    Collection<Entity> blockNearby = block.getLocation().getWorld().getNearbyEntities(block.getLocation(), 2, 2, 2);
-
-                    
-                    List<Entity> enemies = new ArrayList<>();
-                    for (Entity tmp: blockNearby) {
-                        if ((tmp instanceof Damageable) && !(tmp instanceof Player))
-                            enemies.add(tmp);
-                    }
-
-                   
-                    double midy = (block.getLocation().getY() + player.getLocation().getY()) / 2;
-                    double midx = (block.getLocation().getX() + player.getLocation().getX()) / 2;
-                    double midz = (block.getLocation().getZ() + player.getLocation().getZ()) / 2;
-
-                    Location mid = new Location(player.getWorld(), midx, midy, midz);
-                    Thread.sleep(100);
-                    player.spawnParticle(Particle.SONIC_BOOM, mid, 1);
-                    Thread.sleep(100); 
-                    */
                 }
             }
         }
