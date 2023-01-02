@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import org.bukkit.entity.*;
 import org.bukkit.Bukkit;
@@ -18,12 +21,17 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.BlockIterator;
+import dev.cibmc.spigot.superPlugin.NoteRunnable;
+
 
 public class GlassThrow implements Listener {
+    public static void playNote(float pitch, Block nextBlock, Player player) throws InterruptedException {
+        player.getWorld().playSound(nextBlock.getLocation(), Sound.BLOCK_NOTE_BLOCK_HARP, 1.0F, 1.0F + pitch);
+    }
+
     @EventHandler
     public void addSpeed(PlayerJoinEvent event) {
         Player player = event.getPlayer();
@@ -45,13 +53,13 @@ public class GlassThrow implements Listener {
                     Block nextBlock = null;
                     Collection<Entity> blockNearby = null;
                     Random rand = new Random();
-                    float pitch = rand.nextFloat((10F - 1F) + 1F) + 1F;
+                    ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+
                     while (iterator.hasNext()) {
                         nextBlock = iterator.next();
                         blockNearby = nextBlock.getLocation().getWorld().getNearbyEntities(nextBlock.getLocation(), 2, 2, 2);
                         player.spawnParticle(Particle.SONIC_BOOM, nextBlock.getLocation(), 10);
-                        player.getWorld().playSound(nextBlock.getLocation(), Sound.BLOCK_NOTE_BLOCK_HARP, 1.0F, 1.0F * pitch);
-                        pitch += 2;
+                        service.schedule(new NoteRunnable(player, nextBlock), 660, TimeUnit.MILLISECONDS);
                         for (Entity tmp : blockNearby) {
                             if ((tmp instanceof Damageable) && !(tmp instanceof Player))
                             ((Damageable) tmp).damage(3);
