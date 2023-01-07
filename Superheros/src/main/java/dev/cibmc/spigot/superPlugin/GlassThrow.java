@@ -37,16 +37,12 @@ public class GlassThrow implements Listener {
 
             case "Zippy":
             case "MatchstickReads":
-                player.performCommand("nick &dZippy");
-                player.setPlayerListName("Zippy");
                 player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0));
                 event.setJoinMessage("Hello Zippy! Enjoy the speed bonus - Maxis");
                 break;
         
             case "Anne":
             case "jestercrow8557":
-                player.performCommand("nick Anne");
-                player.setPlayerListName("Anne");
                 event.setJoinMessage("Hello Anne, type /giveglass to use your powers - Maxis");
                 break;
             
@@ -54,36 +50,29 @@ public class GlassThrow implements Listener {
             case "Ilse":  
             case "HorcruxNo8":
                 event.setJoinMessage("Hello Ilse, you may find you're alot stronger than the rest of us- Maxis");
-                player.performCommand("nick &6Ilse");
-                player.setPlayerListName("Ilse");
                 player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0));
                 break;
                 
             case "Devster41":
             case "Maxis":
                 event.setJoinMessage("Hello Maxis. You have the power of lightning - Maxis");
-                player.performCommand("nick &9Maxis");
                 break;
             
             case "Aya":
             case "puzzledpiggy":
                 event.setJoinMessage("Hello Aya, to use your healing powers you'll need a stick - Maxis");
-                player.performCommand("nick &cAya");
-                player.setPlayerListName("Aya");
                 break;
             
             case "Kandreil":
             case "AcidicMoss34872":
                 event.setJoinMessage("Hello Kandreil. You may find if someone hits you they will regret it - Maxis");
                 player.performCommand("nick &2Kandreil");
-                player.setPlayerListName("Kandreil");
                 break;
             
             case "Amanda":
             case "UthirTheGr8":
                 event.setJoinMessage("Hello Amanda! To use your powers, you must aquire a note block");
                 player.performCommand("nick &5Amanda");
-                player.setPlayerListName("Amanda");
                 break;
 
         }
@@ -142,7 +131,7 @@ public class GlassThrow implements Listener {
             }
         }
 
-        if (player.getDisplayName().equals("puzzledpiggy")) {
+        if (player.getDisplayName().equals("Devster41")) {
             if (event.getAction() == Action.RIGHT_CLICK_AIR) {
                 ItemStack i = new ItemStack(Material.STICK);
                 if (event.getItem().equals(i)) {
