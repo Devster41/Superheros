@@ -6,6 +6,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import org.bukkit.entity.*;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -32,6 +33,7 @@ public class GlassThrow implements Listener {
     public void addSpeed(PlayerJoinEvent event) {
         
         Player player = event.getPlayer();
+        Bukkit.broadcastMessage(player.getDisplayName());
         
         switch (player.getDisplayName()) {
 
