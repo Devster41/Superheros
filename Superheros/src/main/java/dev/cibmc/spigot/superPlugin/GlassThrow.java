@@ -24,7 +24,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.BlockIterator;
-import dev.cibmc.spigot.superPlugin.NoteRunnable;
 
 
 public class GlassThrow implements Listener {
@@ -35,8 +34,38 @@ public class GlassThrow implements Listener {
     @EventHandler
     public void addSpeed(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        if (player.getDisplayName().equals("Devster41")) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1));
+        event.setJoinMessage("Welcome to the SuperServer " + player.getDisplayName() + "!");
+        switch (player.getDisplayName()) {
+            case "Zippy":
+                player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0));
+                break;
+
+            case "MatchstickReads":
+                player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0));
+                break;
+            
+            case "Anne":
+                player.performCommand("giveglass");
+                break;
+            
+            case "jestercrow8557":
+                player.performCommand("giveglass");
+                break;
+            
+            case "Ilse":
+                player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0));
+                break;
+            
+            case "HorcruxNo8":
+                player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0));
+                break;
+                
+            case "Devster41":
+                player.performCommand("giveglass");
+                player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0));
+                break;
+
         }
     }
 
@@ -45,7 +74,7 @@ public class GlassThrow implements Listener {
         Player player = event.getPlayer();
 
         //Amanda
-        if (player.getDisplayName().equals("Devster41")) {
+        if (player.getDisplayName().equals("Maxis")) {
             if (event.getAction() == Action.LEFT_CLICK_AIR) {
                 ItemStack i = new ItemStack(Material.NOTE_BLOCK);
                 if (event.getItem().equals(i)) {

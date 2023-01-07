@@ -19,9 +19,9 @@ public class ItemManager {
     private static void createBlast() {
         ItemStack item = new ItemStack(Material.GLASS, 1);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName("&6Eldrich Blast");
+        meta.setDisplayName("Eldrich Blast");
         List<String> lore = new ArrayList<>();
-        lore.add("&7Anne's powerful glass blast");
+        lore.add("Anne's powerful glass blast");
         meta.addEnchant(Enchantment.DAMAGE_ALL, 5, false);
         item.setItemMeta(meta);
         eldrichBlast = item;
