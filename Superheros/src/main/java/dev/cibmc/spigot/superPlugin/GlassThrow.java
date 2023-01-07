@@ -133,7 +133,10 @@ public class GlassThrow implements Listener {
             }
         }
 
-        if (player.getDisplayName().equals("Maxis")) {
+        Bukkit.broadcastMessage(player.getName());
+        Bukkit.broadcastMessage(player.getDisplayName());
+
+        if (player.getDisplayName().contains("Maxis")) {
             if (event.getAction() == Action.RIGHT_CLICK_AIR) {
                 ItemStack i = new ItemStack(Material.STICK);
                 if (event.getItem().equals(i)) {
