@@ -33,7 +33,6 @@ public class GlassThrow implements Listener {
     public void addSpeed(PlayerJoinEvent event) {
         
         Player player = event.getPlayer();
-        Bukkit.broadcastMessage(player.getDisplayName());
         
         switch (player.getDisplayName()) {
 
@@ -83,12 +82,12 @@ public class GlassThrow implements Listener {
     @EventHandler
     public static void onSpawn(PlayerRespawnEvent event) {
         Player player = event.getPlayer();
-        switch (player.getDisplayName()) {
-            case "Ilse":
+        switch (player.getName()) {
+            case "HorcruxNo8":
                 player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0));
                 break;
             
-            case "Zippy":
+            case "MatchstickReads":
                 player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0));
                 break;
         }
@@ -96,7 +95,7 @@ public class GlassThrow implements Listener {
 
     @EventHandler 
     public static void onHit(EntityDamageByEntityEvent event) {
-        if ((event.getDamager() instanceof Damageable) && (event.getEntity().getName().equals("Kandreil"))) {
+        if ((event.getDamager() instanceof Damageable) && (event.getEntity().getName().equals("AcidicMoss34872"))) {
             ((Damageable) event.getDamager()).damage(event.getDamage() / 2);
         }
     }
@@ -106,7 +105,7 @@ public class GlassThrow implements Listener {
         Player player = event.getPlayer();
 
         //Amanda
-        if (player.getDisplayName().equals("Amanda")) {
+        if (player.getName().equals("UthirTheGr8")) {
             if (event.getAction() == Action.LEFT_CLICK_AIR) {
                 ItemStack i = new ItemStack(Material.NOTE_BLOCK);
                 if (event.getItem().equals(i)) {
@@ -133,10 +132,7 @@ public class GlassThrow implements Listener {
             }
         }
 
-        Bukkit.broadcastMessage(player.getName());
-        Bukkit.broadcastMessage(player.getDisplayName());
-
-        if (player.getDisplayName().contains("Maxis")) {
+        if (player.getName().contains("puzzledpiggy")) {
             if (event.getAction() == Action.RIGHT_CLICK_AIR) {
                 ItemStack i = new ItemStack(Material.STICK);
                 if (event.getItem().equals(i)) {
