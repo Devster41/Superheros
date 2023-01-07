@@ -101,8 +101,6 @@ public class GlassThrow implements Listener {
 
     @EventHandler 
     public static void onHit(EntityDamageByEntityEvent event) {
-        Bukkit.broadcastMessage(event.getDamager().getName());
-        Bukkit.broadcastMessage(event.getEntity().getName());
         if ((event.getDamager() instanceof Damageable) && (event.getEntity().getName().equals("AcidicMoss34872"))) {
             ((Damageable) event.getDamager()).damage(event.getDamage() / 2);
         }
@@ -138,11 +136,13 @@ public class GlassThrow implements Listener {
                     }
                 }
             }
-        }
+        } else
 
         if (player.getDisplayName().equals("Devster41")) {
-            if (event.getAction() == Action.LEFT_CLICK_AIR) {
+            if (event.getAction() == Action.RIGHT_CLICK_AIR) {
                 ItemStack i = new ItemStack(Material.STICK);
+                Bukkit.broadcastMessage(event.getItem().toString());
+                Bukkit.broadcastMessage(i.toString());
                 if (event.getItem().equals(i)) {
                     BlockIterator iterator = new BlockIterator(player, 15);
                     Block nextBlock = null;
