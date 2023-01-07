@@ -18,8 +18,10 @@ import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -33,39 +35,77 @@ public class GlassThrow implements Listener {
 
     @EventHandler
     public void addSpeed(PlayerJoinEvent event) {
+        
         Player player = event.getPlayer();
-        event.setJoinMessage("Welcome to the SuperServer " + player.getDisplayName() + "!");
+        
         switch (player.getDisplayName()) {
-            case "Zippy":
-                player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0));
-                break;
-
             case "MatchstickReads":
+                player.performCommand("nick &dZippy");
+                player.setPlayerListName("Zippy");
                 player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0));
-                break;
-            
-            case "Anne":
-                player.performCommand("giveglass");
+                event.setJoinMessage("Hello Zippy! Enjoy the speed bonus - Maxis");
                 break;
             
             case "jestercrow8557":
-                player.performCommand("giveglass");
+                player.performCommand("nick Anne");
+                player.setPlayerListName("Anne");
+                event.setJoinMessage("Hello Anne, type /giveglass to use your powers - Maxis");
                 break;
-            
-            case "Ilse":
-                player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0));
-                break;
-            
+              
             case "HorcruxNo8":
+                event.setJoinMessage("Hello Ilse, you may find you're alot stronger than the rest of our characters - Maxis");
+                player.performCommand("nick &6Ilse");
+                player.setPlayerListName("Ilse");
                 player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0));
                 break;
                 
             case "Devster41":
-                player.performCommand("giveglass");
-                player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0));
+                event.setJoinMessage("Hello Maxis. You have the power of lightning - Maxis");
+                player.performCommand("nick &9Maxis");
+                player.setPlayerListName("Maxis");
+                break;
+            
+            case "puzzledpiggy":
+                event.setJoinMessage("Hello Anne, type /giveglass to use your powers - Maxis");
+                player.performCommand("nick &cAya");
+                player.setPlayerListName("Aya");
+                break;
+            
+            case "AcidicMoss34872":
+                event.setJoinMessage("Hello Kandreil. You may find if someone hits you they will regret it - Maxis");
+                player.performCommand("nick &2Kandreil");
+                player.setPlayerListName("Kandreil");
+                break;
+            
+            case "UthirTheGr8":
+                event.setJoinMessage("Hello Amanda! To use your powers, you must aquire a note block");
+                player.performCommand("nick &5Amanda");
+                player.setPlayerListName("Amanda");
+
+        }
+    }
+
+    @EventHandler
+    public static void onSpawn(PlayerRespawnEvent event) {
+        Player player = event.getPlayer();
+        switch (player.getDisplayName()) {
+            case "HorcruxNo8":
                 player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0));
                 break;
+            
+            case "MatchstickReads":
+                player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0));
+                break;
+        }
+    }
 
+    @EventHandler 
+    public static void onHit(EntityDamageByEntityEvent event) {
+        if ((event.getEntity() instanceof Player) && (event.getDamager() instanceof Damageable)) {
+            Player kandreil = (Player) event.getEntity();
+            if (kandreil.getDisplayName().equals("Devster41")) {
+                ((Damageable) event.getDamager()).damage(event.getDamage() / 2);
+            }
         }
     }
 
@@ -74,14 +114,13 @@ public class GlassThrow implements Listener {
         Player player = event.getPlayer();
 
         //Amanda
-        if (player.getDisplayName().equals("Maxis")) {
+        if (player.getDisplayName().equals("UthirTheGr8")) {
             if (event.getAction() == Action.LEFT_CLICK_AIR) {
                 ItemStack i = new ItemStack(Material.NOTE_BLOCK);
                 if (event.getItem().equals(i)) {
                     BlockIterator iterator = new BlockIterator(player, 15);
                     Block nextBlock = null;
                     Collection<Entity> blockNearby = null;
-                    Random rand = new Random();
                     ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
                     iterator.next();
                     while (iterator.hasNext()) {
