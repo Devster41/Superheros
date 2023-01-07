@@ -133,10 +133,14 @@ public class GlassThrow implements Listener {
             }
         }
 
+        Bukkit.broadcastMessage("hello");
+        Bukkit.broadcastMessage(player.getDisplayName());
         if (player.getDisplayName().equals("Devster41")) {
+            Bukkit.broadcastMessage("it");
             if (event.getAction() == Action.RIGHT_CLICK_AIR) {
                 ItemStack i = new ItemStack(Material.STICK);
                 if (event.getItem().equals(i)) {
+                    Bukkit.broadcastMessage("is");
                     BlockIterator iterator = new BlockIterator(player, 15);
                     Block nextBlock = null;
                     Collection<Entity> blockNearby = null;
