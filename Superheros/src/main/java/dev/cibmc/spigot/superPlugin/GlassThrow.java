@@ -84,11 +84,11 @@ public class GlassThrow implements Listener {
     public static void onSpawn(PlayerRespawnEvent event) {
         Player player = event.getPlayer();
         switch (player.getDisplayName()) {
-            case "HorcruxNo8":
+            case "Ilse":
                 player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0));
                 break;
             
-            case "MatchstickReads":
+            case "Zippy":
                 player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0));
                 break;
         }
@@ -96,7 +96,7 @@ public class GlassThrow implements Listener {
 
     @EventHandler 
     public static void onHit(EntityDamageByEntityEvent event) {
-        if ((event.getDamager() instanceof Damageable) && (event.getEntity().getName().equals("AcidicMoss34872"))) {
+        if ((event.getDamager() instanceof Damageable) && (event.getEntity().getName().equals("Kandreil"))) {
             ((Damageable) event.getDamager()).damage(event.getDamage() / 2);
         }
     }
@@ -106,7 +106,7 @@ public class GlassThrow implements Listener {
         Player player = event.getPlayer();
 
         //Amanda
-        if (player.getDisplayName().equals("UthirTheGr8")) {
+        if (player.getDisplayName().equals("Amanda")) {
             if (event.getAction() == Action.LEFT_CLICK_AIR) {
                 ItemStack i = new ItemStack(Material.NOTE_BLOCK);
                 if (event.getItem().equals(i)) {
@@ -133,14 +133,10 @@ public class GlassThrow implements Listener {
             }
         }
 
-        Bukkit.broadcastMessage("hello");
-        Bukkit.broadcastMessage(player.getDisplayName());
-        if (player.getDisplayName().equals("Devster41")) {
-            Bukkit.broadcastMessage("it");
+        if (player.getDisplayName().equals("Maxis")) {
             if (event.getAction() == Action.RIGHT_CLICK_AIR) {
                 ItemStack i = new ItemStack(Material.STICK);
                 if (event.getItem().equals(i)) {
-                    Bukkit.broadcastMessage("is");
                     BlockIterator iterator = new BlockIterator(player, 15);
                     Block nextBlock = null;
                     Collection<Entity> blockNearby = null;
