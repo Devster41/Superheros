@@ -103,7 +103,7 @@ public class GlassThrow implements Listener {
     public static void onHit(EntityDamageByEntityEvent event) {
         Bukkit.broadcastMessage(event.getDamager().getName());
         Bukkit.broadcastMessage(event.getEntity().getName());
-        if ((event.getDamager() instanceof Damageable) && (event.getEntity().getName().equals("Devster41"))) {
+        if ((event.getDamager() instanceof Damageable) && (event.getEntity().getName().equals("AcidicMoss34872"))) {
             ((Damageable) event.getDamager()).damage(event.getDamage() / 2);
         }
     }
@@ -111,7 +111,6 @@ public class GlassThrow implements Listener {
     @EventHandler
     public static void onClick(PlayerInteractEvent event) throws InterruptedException {
         Player player = event.getPlayer();
-        player.setPlayerListName("Maxis");
 
         //Amanda
         if (player.getDisplayName().equals("UthirTheGr8")) {
@@ -136,6 +135,33 @@ public class GlassThrow implements Listener {
                         if (iterator.hasNext()) iterator.next();
                         if (iterator.hasNext()) iterator.next();
                         Thread.sleep(115);
+                    }
+                }
+            }
+        }
+
+        if (player.getDisplayName().equals("Devster41")) {
+            if (event.getAction() == Action.LEFT_CLICK_AIR) {
+                ItemStack i = new ItemStack(Material.STICK);
+                if (event.getItem().equals(i)) {
+                    BlockIterator iterator = new BlockIterator(player, 15);
+                    Block nextBlock = null;
+                    Collection<Entity> blockNearby = null;
+                    iterator.next();
+                    while (iterator.hasNext()) {
+                        nextBlock = iterator.next();
+                        blockNearby = nextBlock.getLocation().getWorld().getNearbyEntities(nextBlock.getLocation(), 2, 2, 2);
+                        player.spawnParticle(Particle.HEART, nextBlock.getLocation(), 10);
+                        for (Entity tmp : blockNearby) {
+                            if ((tmp instanceof Damageable) && (tmp instanceof Player)) {
+                                ((Damageable) tmp).setHealth(((Damageable) tmp).getHealth() + 3.0);
+                                ((Player) tmp).playSound(tmp.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
+                            }
+                        }
+                        if (iterator.hasNext()) iterator.next();
+                        if (iterator.hasNext()) iterator.next();
+                        if (iterator.hasNext()) iterator.next();
+                        Thread.sleep(50);
                     }
                 }
             }
