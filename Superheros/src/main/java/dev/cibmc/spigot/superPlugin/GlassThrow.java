@@ -61,8 +61,8 @@ public class GlassThrow implements Listener {
                 
             case "Devster41":
                 event.setJoinMessage("Hello Maxis. You have the power of lightning - Maxis");
-                player.performCommand("nick &9Maxis");
                 player.setPlayerListName("Maxis");
+                player.performCommand("nick &9Maxis");
                 break;
             
             case "puzzledpiggy":
@@ -101,6 +101,8 @@ public class GlassThrow implements Listener {
 
     @EventHandler 
     public static void onHit(EntityDamageByEntityEvent event) {
+        Bukkit.broadcastMessage(event.getDamager().getName());
+        Bukkit.broadcastMessage(event.getEntity().getName());
         if ((event.getEntity() instanceof Player) && (event.getDamager() instanceof Damageable)) {
             Player kandreil = (Player) event.getEntity();
             if (kandreil.getDisplayName().equals("Devster41")) {
