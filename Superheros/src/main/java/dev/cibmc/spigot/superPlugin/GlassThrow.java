@@ -103,7 +103,7 @@ public class GlassThrow implements Listener {
     public static void onHit(EntityDamageByEntityEvent event) {
         Bukkit.broadcastMessage(event.getDamager().getName());
         Bukkit.broadcastMessage(event.getEntity().getName());
-        if ((event.getDamager() instanceof Damageable) && (event.getEntity().getName().equals("Devster41")))
+        if ((event.getDamager() instanceof Damageable) && (event.getEntity().getName().equals("Devster41"))) {
             ((Damageable) event.getDamager()).damage(event.getDamage() / 2);
         }
     }
