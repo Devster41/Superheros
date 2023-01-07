@@ -148,6 +148,8 @@ public class GlassThrow implements Listener {
                             if ((tmp instanceof Damageable) && (tmp instanceof Player)) {
                                 if (((Damageable) tmp).getHealth() < 15.0) {
                                     ((Damageable) tmp).setHealth(((Damageable) tmp).getHealth() + 5.0);
+                                } else {
+                                    ((Damageable) tmp).setHealth(20.0);
                                 }
                                 ((Player) tmp).playSound(tmp.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
                             }
