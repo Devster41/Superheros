@@ -103,17 +103,15 @@ public class GlassThrow implements Listener {
     public static void onHit(EntityDamageByEntityEvent event) {
         Bukkit.broadcastMessage(event.getDamager().getName());
         Bukkit.broadcastMessage(event.getEntity().getName());
-        if ((event.getEntity() instanceof Player) && (event.getDamager() instanceof Damageable)) {
-            Player kandreil = (Player) event.getEntity();
-            if (kandreil.getDisplayName().equals("Devster41")) {
-                ((Damageable) event.getDamager()).damage(event.getDamage() / 2);
-            }
+        if ((event.getDamager() instanceof Damageable) && (event.getEntity().getName().equals("Devster41")))
+            ((Damageable) event.getDamager()).damage(event.getDamage() / 2);
         }
     }
 
     @EventHandler
     public static void onClick(PlayerInteractEvent event) throws InterruptedException {
         Player player = event.getPlayer();
+        player.setPlayerListName("Maxis");
 
         //Amanda
         if (player.getDisplayName().equals("UthirTheGr8")) {
