@@ -1,16 +1,11 @@
 package dev.cibmc.spigot.superPlugin;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import org.bukkit.entity.*;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -39,48 +34,57 @@ public class GlassThrow implements Listener {
         Player player = event.getPlayer();
         
         switch (player.getDisplayName()) {
+
+            case "Zippy":
             case "MatchstickReads":
                 player.performCommand("nick &dZippy");
                 player.setPlayerListName("Zippy");
                 player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0));
                 event.setJoinMessage("Hello Zippy! Enjoy the speed bonus - Maxis");
                 break;
-            
+        
+            case "Anne":
             case "jestercrow8557":
                 player.performCommand("nick Anne");
                 player.setPlayerListName("Anne");
                 event.setJoinMessage("Hello Anne, type /giveglass to use your powers - Maxis");
                 break;
-              
+            
+            
+            case "Ilse":  
             case "HorcruxNo8":
-                event.setJoinMessage("Hello Ilse, you may find you're alot stronger than the rest of our characters - Maxis");
+                event.setJoinMessage("Hello Ilse, you may find you're alot stronger than the rest of us- Maxis");
                 player.performCommand("nick &6Ilse");
                 player.setPlayerListName("Ilse");
                 player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0));
                 break;
                 
             case "Devster41":
+            case "Maxis":
                 event.setJoinMessage("Hello Maxis. You have the power of lightning - Maxis");
-                player.setPlayerListName("Maxis");
                 player.performCommand("nick &9Maxis");
                 break;
             
+            case "Aya":
             case "puzzledpiggy":
-                event.setJoinMessage("Hello Anne, type /giveglass to use your powers - Maxis");
+                event.setJoinMessage("Hello Aya, to use your healing powers you'll need a stick - Maxis");
                 player.performCommand("nick &cAya");
                 player.setPlayerListName("Aya");
                 break;
             
+            case "Kandreil":
             case "AcidicMoss34872":
                 event.setJoinMessage("Hello Kandreil. You may find if someone hits you they will regret it - Maxis");
                 player.performCommand("nick &2Kandreil");
                 player.setPlayerListName("Kandreil");
                 break;
             
+            case "Amanda":
             case "UthirTheGr8":
                 event.setJoinMessage("Hello Amanda! To use your powers, you must aquire a note block");
                 player.performCommand("nick &5Amanda");
                 player.setPlayerListName("Amanda");
+                break;
 
         }
     }
@@ -136,13 +140,11 @@ public class GlassThrow implements Listener {
                     }
                 }
             }
-        } else
+        }
 
-        if (player.getDisplayName().equals("Devster41")) {
+        if (player.getDisplayName().equals("puzzledpiggy")) {
             if (event.getAction() == Action.RIGHT_CLICK_AIR) {
                 ItemStack i = new ItemStack(Material.STICK);
-                Bukkit.broadcastMessage(event.getItem().toString());
-                Bukkit.broadcastMessage(i.toString());
                 if (event.getItem().equals(i)) {
                     BlockIterator iterator = new BlockIterator(player, 15);
                     Block nextBlock = null;
@@ -154,7 +156,9 @@ public class GlassThrow implements Listener {
                         player.spawnParticle(Particle.HEART, nextBlock.getLocation(), 10);
                         for (Entity tmp : blockNearby) {
                             if ((tmp instanceof Damageable) && (tmp instanceof Player)) {
-                                ((Damageable) tmp).setHealth(((Damageable) tmp).getHealth() + 3.0);
+                                if (((Damageable) tmp).getHealth() < 15.0) {
+                                    ((Damageable) tmp).setHealth(((Damageable) tmp).getHealth() + 5.0);
+                                }
                                 ((Player) tmp).playSound(tmp.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
                             }
                         }
