@@ -68,9 +68,9 @@ public class GlassThrow implements Listener {
 
         */
 
-        if (player.getDisplayName().contains("Zippy")) {
+        if (player.getDisplayName().contains("Zippy") || player.getDisplayName().contains("12")) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1));
-        } else if (player.getDisplayName().contains("Ilse")) {
+        } else if (player.getDisplayName().contains("Ilse") || player.getDisplayName().contains("crux")) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 1));
         }
     }
@@ -94,7 +94,7 @@ public class GlassThrow implements Listener {
         Player player = (Player) event.getEntity();
 
         if ((event.getDamager() instanceof Damageable) && (player.getDisplayName().contains("Kandreil"))) {
-            ((Damageable) event.getDamager()).damage(event.getDamage());
+            ((Damageable) event.getDamager()).damage(event.getDamage() * 2);
         }
     }
 
