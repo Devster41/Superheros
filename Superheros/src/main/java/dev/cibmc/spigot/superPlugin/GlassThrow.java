@@ -71,7 +71,7 @@ public class GlassThrow implements Listener {
         if (player.getDisplayName().contains("Zippy")) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1));
         } else if (player.getDisplayName().contains("Ilse")) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 1));
         }
     }
 
@@ -81,7 +81,7 @@ public class GlassThrow implements Listener {
         if (player.getDisplayName().contains("Zippy")) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1));
         } else if (player.getDisplayName().contains("Ilse")) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 1));
         }
     }
 
@@ -105,7 +105,8 @@ public class GlassThrow implements Listener {
         //Amanda
             if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK) {
                 if (event.getItem() != null) {
-                    if (event.getItem().getItemMeta().equals(ItemManager.mic.getItemMeta())) {
+                    ItemStack i = new ItemStack(Material.NOTE_BLOCK);
+                    if (event.getItem().equals(i) && player.getDisplayName().contains("Amanda")) {
                         BlockIterator iterator = new BlockIterator(player, 15);
                         Block nextBlock = null;
                         Collection<Entity> blockNearby = null;
@@ -114,11 +115,11 @@ public class GlassThrow implements Listener {
                         while (iterator.hasNext()) {
                             nextBlock = iterator.next();
                             blockNearby = nextBlock.getLocation().getWorld().getNearbyEntities(nextBlock.getLocation(), 2, 2, 2);
-                            player.spawnParticle(Particle.SONIC_BOOM, nextBlock.getLocation(), 10);
+                            player.spawnParticle(Particle.SONIC_BOOM, nextBlock.getLocation(), 2);
                             service.schedule(new NoteRunnable(player, nextBlock), 660, TimeUnit.MILLISECONDS);
                             for (Entity tmp : blockNearby) {
                                 if ((tmp instanceof Damageable) && !(tmp instanceof Player))
-                                ((Damageable) tmp).damage(7);
+                                ((Damageable) tmp).damage(8.0);
                             }
                             if (iterator.hasNext()) iterator.next();
                             if (iterator.hasNext()) iterator.next();
@@ -132,11 +133,15 @@ public class GlassThrow implements Listener {
         //Anne and Aya
         if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if (event.getItem() != null) {
-                if (event.getItem().getItemMeta().equals(ItemManager.eldrichBlast.getItemMeta())) {
-                    player.launchProjectile(LlamaSpit.class);
-                    player.getWorld().playSound(player.getLocation(), Sound.BLOCK_GLASS_BREAK, 1, 1);
-                } else if (event.getItem().getItemMeta().equals(ItemManager.healingStaff.getItemMeta())) {
-                    BlockIterator iterator = new BlockIterator(player, 15);
+                if (player.getDisplayName().contains("Anne")) {
+                    if (event.getItem().getItemMeta().equals(ItemManager.eldrichBlast.getItemMeta())) {
+                        player.launchProjectile(LlamaSpit.class);
+                        player.getWorld().playSound(player.getLocation(), Sound.BLOCK_GLASS_BREAK, 1, 1);
+                    }
+                } else if (player.getDisplayName().contains("Aya")) {
+                    ItemStack stick = new ItemStack(Material.STICK);
+                    if (event.getItem().equals(stick)) {
+                        BlockIterator iterator = new BlockIterator(player, 15);
                     Block nextBlock = null;
                     Collection<Entity> blockNearby = null;
                     iterator.next();
@@ -158,6 +163,7 @@ public class GlassThrow implements Listener {
                         if (iterator.hasNext()) iterator.next();
                         if (iterator.hasNext()) iterator.next();
                         Thread.sleep(50);
+                        }
                     }
                 }
             } 

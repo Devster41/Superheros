@@ -57,7 +57,7 @@ public class NoteRunnable implements Runnable {
                 break;
         }
 
-        player.playNote(nextBlock.getLocation(), Instrument.PIANO, Note.natural(octave, tone));
+        player.playNote(nextBlock.getLocation(), Instrument.GUITAR, Note.natural(octave, tone));
         
     }
     

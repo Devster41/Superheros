@@ -7,8 +7,6 @@ public class App extends JavaPlugin {
         getLogger().info("Hello, SpimingotMC!");
         ItemManager.init();
         getCommand("giveglass").setExecutor(new Commands());
-        getCommand("summonStaff").setExecutor(new Commands());
-        getCommand("getMic").setExecutor(new Commands());
         getServer().getPluginManager().registerEvents(new GlassThrow(), this);
     }
     @Override
