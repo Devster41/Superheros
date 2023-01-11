@@ -181,12 +181,12 @@ public class GlassThrow implements Listener {
                         Block block = player.getTargetBlock(null, 50);
                         if (block != null) {
                             Collection<Entity> entities = block.getLocation().getWorld().getNearbyEntities(block.getLocation(), 5, 5, 5);
-                            player.spawnParticle(Particle.SMOKE_NORMAL, player.getLocation(), 10);
+                            player.spawnParticle(Particle.SMOKE_NORMAL, player.getEyeLocation(), 10);
                             player.playSound(player.getLocation(), Sound.ENTITY_BLAZE_SHOOT, 1, 1);
                             Thread.sleep(100);
-                            player.spawnParticle(Particle.DRAGON_BREATH, block.getLocation(), 10);
+                            player.spawnParticle(Particle.DRAGON_BREATH, block.getLocation(), 100);
                             player.playSound(block.getLocation(), Sound.ENTITY_DRAGON_FIREBALL_EXPLODE, null, 1, 1);
-                            PotionEffect effect = new PotionEffect(PotionEffectType.SLOW, 10, 2);
+                            PotionEffect effect = new PotionEffect(PotionEffectType.SLOW, 100, 2);
                             for (Entity tmp : entities) {
                                 if (tmp instanceof LivingEntity) {
                                     ((LivingEntity) tmp).addPotionEffect(effect);
