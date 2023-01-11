@@ -38,7 +38,7 @@ public class ItemManager {
         meta.setDisplayName("Staff of Slowness");
         List<String> lore = new ArrayList<>();
         lore.add("Aya's staff to slow enemies down");
-        meta.addEnchant(Enchantment.LUCK, 3, true);
+        meta.addEnchant(Enchantment.DAMAGE_ALL, 5, true);
         item.setItemMeta(meta);
         slowStaff = item;
         meta.addItemFlags();

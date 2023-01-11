@@ -177,7 +177,7 @@ public class GlassThrow implements Listener {
                         if (iterator.hasNext()) iterator.next();
                         Thread.sleep(50);
                         }
-                    } else {
+                    } else if (event.getItem().getItemMeta().equals(ItemManager.slowStaff.getItemMeta())) {
                         Block block = player.getTargetBlock(null, 50);
                         if (block != null) {
                             Collection<Entity> entities = block.getLocation().getWorld().getNearbyEntities(block.getLocation(), 5, 5, 5);
