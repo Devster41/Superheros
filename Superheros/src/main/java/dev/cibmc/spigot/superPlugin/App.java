@@ -4,9 +4,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class App extends JavaPlugin {
     @Override
     public void onEnable() {
+        Commands commands = new Commands();
         getLogger().info("Hello, SpimingotMC!");
         ItemManager.init();
-        getCommand("giveglass").setExecutor(new Commands());
+        getCommand("giveglass").setExecutor(commands);
+        getCommand("giveStaff").setExecutor(commands);
+        getCommand("hilt").setExecutor(commands);
         getServer().getPluginManager().registerEvents(new GlassThrow(), this);
     }
     @Override

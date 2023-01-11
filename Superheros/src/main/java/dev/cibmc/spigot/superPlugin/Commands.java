@@ -17,6 +17,14 @@ public class Commands implements CommandExecutor {
         if (command.getName().equalsIgnoreCase("giveglass")) {
             player.getInventory().addItem(ItemManager.eldrichBlast);
         }
+
+        if (command.getName().equalsIgnoreCase("giveStaff")) {
+            player.getInventory().addItem(ItemManager.slowStaff);
+        }
+
+        if (command.getName().equalsIgnoreCase("hilt")) {
+            player.getInventory().addItem(ItemManager.hilt);
+        }
         return false;
     }
     

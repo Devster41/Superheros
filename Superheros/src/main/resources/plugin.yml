@@ -5,9 +5,9 @@ commands:
   giveglass:
     description: Gives Anne their eldrich glass blast
     usage: /<command>
-  summonStaff:
-    description: Gives Aya her healing staff
+  giveStaff:
+    description: Gives Aya her slow staff
     usage: /<command>
-  giveMic:
-    description: Gives Amanda her microphone
+  hilt:
+    description: Give Maxis his conductive hilt
     usage: /<command>

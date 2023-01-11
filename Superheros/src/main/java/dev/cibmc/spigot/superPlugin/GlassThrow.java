@@ -7,8 +7,10 @@ import java.util.concurrent.TimeUnit;
 
 import org.bukkit.entity.*;
 import org.bukkit.Bukkit;
+import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.Particle;
+import org.bukkit.Server;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
@@ -19,8 +21,10 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.potion.PotionType;
 import org.bukkit.util.BlockIterator;
 
 
@@ -102,6 +106,15 @@ public class GlassThrow implements Listener {
     public static void onClick(PlayerInteractEvent event) throws InterruptedException {
         Player player = event.getPlayer();
 
+        if (player.getDisplayName().contains("Zippy")) {
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1));
+            return;
+        }
+
+        if (player.getDisplayName().contains("Ilse")) {
+            player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 1));
+        }
+
         //Amanda
             if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK) {
                 if (event.getItem() != null) {
@@ -164,7 +177,25 @@ public class GlassThrow implements Listener {
                         if (iterator.hasNext()) iterator.next();
                         Thread.sleep(50);
                         }
+                    } else {
+                        Block block = player.getTargetBlock(null, 50);
+                        if (block != null) {
+                            Collection<Entity> entities = block.getLocation().getWorld().getNearbyEntities(block.getLocation(), 5, 5, 5);
+                            player.spawnParticle(Particle.SMOKE_NORMAL, player.getLocation(), 10);
+                            player.playSound(player.getLocation(), Sound.ENTITY_BLAZE_SHOOT, 1, 1);
+                            Thread.sleep(100);
+                            player.spawnParticle(Particle.DRAGON_BREATH, block.getLocation(), 10);
+                            player.playSound(block.getLocation(), Sound.ENTITY_DRAGON_FIREBALL_EXPLODE, null, 1, 1);
+                            PotionEffect effect = new PotionEffect(PotionEffectType.SLOW, 10, 2);
+                            for (Entity tmp : entities) {
+                                if (tmp instanceof LivingEntity) {
+                                    ((LivingEntity) tmp).addPotionEffect(effect);
+                                }
+                            }
+                        }
                     }
+                } else if (event.getItem().getItemMeta().equals(ItemManager.hilt.getItemMeta())) {
+                    Bukkit.getServer().dispatchCommand(player, "smite");
                 }
             } 
         }
