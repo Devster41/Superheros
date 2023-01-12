@@ -7,10 +7,8 @@ import java.util.concurrent.TimeUnit;
 
 import org.bukkit.entity.*;
 import org.bukkit.Bukkit;
-import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.Particle;
-import org.bukkit.Server;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
@@ -21,10 +19,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.potion.PotionType;
 import org.bukkit.util.BlockIterator;
 
 
@@ -37,40 +33,6 @@ public class GlassThrow implements Listener {
     public void addSpeed(PlayerJoinEvent event) {
         
         Player player = event.getPlayer();
-
-        /*
-        switch (player.getDisplayName()) {
-
-            case "Zippy":
-            case "MatchstickReads":
-                player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0));
-                break;
-        
-            case "Anne":
-            case "jestercrow8557":
-                break;  
-            case "Ilse":  
-            case "HorcruxNo8":
-                player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0));
-                break;
-                
-            case "Devster41":
-            case "Maxis":
-                break;
-            
-            case "Aya":
-            case "puzzledpiggy":
-                break;
-            
-            case "Kandreil":
-            case "AcidicMoss34872":
-                break;
-            
-            case "Amanda":
-            case "UthirTheGreat":
-                break;
-
-        */
 
         if (player.getDisplayName().contains("Zippy") || player.getDisplayName().contains("12")) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1));
@@ -97,7 +59,13 @@ public class GlassThrow implements Listener {
 
         Player player = (Player) event.getEntity();
 
-        if ((event.getDamager() instanceof Damageable) && (player.getDisplayName().contains("Kandreil"))) {
+        if (!(player.getDisplayName().contains("Kandreil"))) {
+            return;
+        }
+
+        if (event.getDamager() instanceof Projectile) {
+            player.launchProjectile(((Projectile) event.getDamager()).getClass());
+        } else if (event.getDamager() instanceof Damageable) {
             ((Damageable) event.getDamager()).damage(event.getDamage() * 2);
         }
     }
@@ -186,9 +154,9 @@ public class GlassThrow implements Listener {
                             Thread.sleep(100);
                             player.spawnParticle(Particle.DRAGON_BREATH, block.getLocation(), 100);
                             player.playSound(block.getLocation(), Sound.ENTITY_DRAGON_FIREBALL_EXPLODE, null, 1, 1);
-                            PotionEffect effect = new PotionEffect(PotionEffectType.SLOW, 100, 2);
+                            PotionEffect effect = new PotionEffect(PotionEffectType.SLOW, 150, 3);
                             for (Entity tmp : entities) {
-                                if (tmp instanceof LivingEntity) {
+                                if ((tmp instanceof LivingEntity) && !(tmp.equals(player))) {
                                     ((LivingEntity) tmp).addPotionEffect(effect);
                                 }
                             }
