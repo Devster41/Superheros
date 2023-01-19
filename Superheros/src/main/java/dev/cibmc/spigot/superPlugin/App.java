@@ -5,7 +5,7 @@ public class App extends JavaPlugin {
     @Override
     public void onEnable() {
         Commands commands = new Commands();
-        getLogger().info("Hello, SpimingotMC!");
+        getLogger().info("Enabling Superhero plugin");
         ItemManager.init();
         getCommand("giveglass").setExecutor(commands);
         getCommand("giveStaff").setExecutor(commands);
@@ -15,6 +15,6 @@ public class App extends JavaPlugin {
     }
     @Override
     public void onDisable() {
-        getLogger().info("See you again, SpigotMC!");
+        getLogger().info("Disabling Superhero plugin");
     }
 }
