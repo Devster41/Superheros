@@ -1,9 +1,11 @@
 package dev.cibmc.spigot.superPlugin;
 
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 public class Commands implements CommandExecutor {
 
@@ -25,6 +27,12 @@ public class Commands implements CommandExecutor {
         if (command.getName().equalsIgnoreCase("hilt")) {
             player.getInventory().addItem(ItemManager.hilt);
         }
+
+        if (command.getName().equalsIgnoreCase("glassstack")) {
+            ItemStack glassStack = new ItemStack(Material.GLASS, 64);
+            player.getInventory().addItem(glassStack);
+        }
+        
         return false;
     }
     

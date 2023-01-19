@@ -11,3 +11,6 @@ commands:
   hilt:
     description: Give Maxis his conductive hilt
     usage: /<command>
+  glassstack:
+    description: Gives Anne a stack of glass blocks
+    usage: /<command>

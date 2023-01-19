@@ -86,6 +86,7 @@ public class GlassThrow implements Listener {
 
         if (player.getDisplayName().contains("Ilse")) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 1));
+            return;
         }
 
         //Amanda
