@@ -53,6 +53,11 @@ public class GlassThrow implements Listener {
 
     @EventHandler 
     public static void onHit(EntityDamageByEntityEvent event) {
+        // Increase Anne damage by 3 hearts
+        if ((event.getDamager() instanceof LlamaSpit) && (event.getEntity() instanceof Damageable)) {
+            ((Damageable) event.getEntity()).damage(6.0);
+        }
+
         if (!(event.getEntity() instanceof Player)) {
             return;
         }
@@ -131,11 +136,11 @@ public class GlassThrow implements Listener {
                         blockNearby = nextBlock.getLocation().getWorld().getNearbyEntities(nextBlock.getLocation(), 2, 2, 2);
                         player.spawnParticle(Particle.HEART, nextBlock.getLocation(), 10);
                         for (Entity tmp : blockNearby) {
-                            if ((tmp instanceof Damageable) && (tmp instanceof Player)) {
-                                if (((Damageable) tmp).getHealth() < 15.0) {
-                                    ((Damageable) tmp).setHealth(((Damageable) tmp).getHealth() + 5.0);
+                            if (tmp instanceof Player) {
+                                if (((Player) tmp).getHealth() < 15.0) {
+                                    ((Player) tmp).setHealth(((Player) tmp).getHealth() + 5.0);
                                 } else {
-                                    ((Damageable) tmp).setHealth(20.0);
+                                    ((Player) tmp).setHealth(20.0);
                                 }
                                 ((Player) tmp).playSound(tmp.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
                             }
