@@ -11,6 +11,7 @@ public class App extends JavaPlugin {
         getCommand("giveStaff").setExecutor(commands);
         getCommand("hilt").setExecutor(commands);
         getCommand("glassstack").setExecutor(commands);
+        getCommand("addblock").setExecutor(commands);
         getServer().getPluginManager().registerEvents(new GlassThrow(), this);
     }
     @Override

@@ -14,3 +14,6 @@ commands:
   glassstack:
     description: Gives Anne a stack of glass blocks
     usage: /<command>
+  addblock:
+    description: Adds the block you're looking at to your inventory
+    usage: /<command>

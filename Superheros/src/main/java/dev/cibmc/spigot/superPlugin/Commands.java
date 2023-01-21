@@ -1,6 +1,8 @@
 package dev.cibmc.spigot.superPlugin;
 
 import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -31,6 +33,12 @@ public class Commands implements CommandExecutor {
         if (command.getName().equalsIgnoreCase("glassstack")) {
             ItemStack glassStack = new ItemStack(Material.GLASS, 64);
             player.getInventory().addItem(glassStack);
+        }
+
+        if (command.getName().equalsIgnoreCase("addblock")) {
+            Block block = player.getTargetBlock(null, 0);
+            ItemStack stack = new ItemStack(block.getType(), 64, (short) 0, block.getData());
+            player.getInventory().addItem(stack);
         }
         
         return false;
