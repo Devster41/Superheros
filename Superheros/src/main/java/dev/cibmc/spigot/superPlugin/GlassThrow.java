@@ -11,6 +11,7 @@ import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
+import org.bukkit.block.data.type.Fire;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -22,6 +23,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.BlockIterator;
+
+import net.md_5.bungee.api.ChatColor;
 
 
 public class GlassThrow implements Listener {
@@ -68,10 +71,14 @@ public class GlassThrow implements Listener {
             return;
         }
 
-        if (event.getDamager() instanceof Projectile) {
-            player.launchProjectile(((Projectile) event.getDamager()).getClass());
+        if ((event.getDamager() instanceof Projectile)) {
+            Projectile projectile = (Projectile) event.getDamager();
+            player.launchProjectile(projectile.getClass());
         } else if (event.getDamager() instanceof Damageable) {
             ((Damageable) event.getDamager()).damage(event.getDamage() * 2);
+        } else if (event.getDamager() instanceof Fireball) {
+            Fireball fireball = (Fireball) event.getDamager();
+            player.launchProjectile(fireball.getClass());
         }
     }
 
