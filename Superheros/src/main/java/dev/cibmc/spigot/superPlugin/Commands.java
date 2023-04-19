@@ -1,5 +1,6 @@
 package dev.cibmc.spigot.superPlugin;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
@@ -19,7 +20,13 @@ public class Commands implements CommandExecutor {
         }
         Player player = (Player) sender;
         if (command.getName().equalsIgnoreCase("giveglass")) {
-            player.getInventory().addItem(ItemManager.eldrichBlast);
+
+            if (!player.getDisplayName().contains("Anne")) {
+                player.getWorld().strikeLightning(player.getLocation());
+                player.sendMessage("That is not your power!");
+            } else {
+                player.getInventory().addItem(ItemManager.eldrichBlast);
+            }
         }
 
         if (command.getName().equalsIgnoreCase("giveStaff")) {
@@ -32,7 +39,12 @@ public class Commands implements CommandExecutor {
 
         if (command.getName().equalsIgnoreCase("glassstack")) {
             ItemStack glassStack = new ItemStack(Material.GLASS, 64);
-            player.getInventory().addItem(glassStack);
+            if (!player.getDisplayName().contains("Anne")) {
+                player.getWorld().strikeLightning(player.getLocation());
+                player.sendMessage("That is not your power!");
+            } else {
+                player.getInventory().addItem(glassStack);
+            }
         }
 
         if (command.getName().equalsIgnoreCase("addblock")) {
